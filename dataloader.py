@@ -16,7 +16,6 @@ def populate_train_list(lowlight_images_path):
 
 
 class lowlight_loader(data.Dataset):
-
     def __init__(self, lowlight_images_path):
         self.train_list = populate_train_list(lowlight_images_path)
         self.size = 256
