@@ -9,25 +9,28 @@ import model
 import time
 
 
-def lowlight(image_path):
-    # os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-    data_lowlight = Image.open(image_path)
-    data_lowlight = (np.asarray(data_lowlight) / 255.0)
-    data_lowlight = torch.from_numpy(data_lowlight).float()
-    data_lowlight = data_lowlight.permute(2, 0, 1)
-    data_lowlight = data_lowlight.cuda().unsqueeze(0)
-    DCE_net = model.enhance_net_nopool().cuda()
-    DCE_net.load_state_dict(torch.load('snapshots/Epoch99.pth'))
-    _, enhanced_image, _ = DCE_net(data_lowlight)
-    image_path = image_path.replace('test_data', 'result')
-    result_path = image_path
-    if not os.path.exists(image_path.replace('/' + image_path.split("/")[-1], '')):
-        os.makedirs(image_path.replace('/' + image_path.split("/")[-1], ''))
-    torchvision.utils.save_image(enhanced_image, result_path)
+class imgDce:
+    def __init__(self):
+        self.DCE_net = model.enhance_net_nopool().cuda()
+        self.DCE_net.load_state_dict(torch.load('snapshots/Epoch99.pth'))
+
+    def lowlight(self, image_path):
+        data_lowlight = Image.open(image_path)
+        data_lowlight = (np.asarray(data_lowlight) / 255.0)
+        data_lowlight = torch.from_numpy(data_lowlight).float()
+        data_lowlight = data_lowlight.permute(2, 0, 1)
+        data_lowlight = data_lowlight.cuda().unsqueeze(0)
+        _, enhanced_image, _ = self.DCE_net(data_lowlight)
+        image_path = image_path.replace('test_data', 'result')
+        result_path = image_path
+        if not os.path.exists(image_path.replace('/' + image_path.split("/")[-1], '')):
+            os.makedirs(image_path.replace('/' + image_path.split("/")[-1], ''))
+        torchvision.utils.save_image(enhanced_image, result_path)
 
 
 if __name__ == '__main__':
     # test_images
+    ip = imgDce()
     with torch.no_grad():
         filePath = 'data/test_data/'
         file_list = os.listdir(filePath)
@@ -38,8 +41,7 @@ if __name__ == '__main__':
             test_list = glob.glob(filePath + file_name + "/*")
             img_total += len(test_list)
             for image in test_list:
-                # print(image)
-                lowlight(image)
+                ip.lowlight(image)
         te = time.time() - ts
         te = round(te, 2)
         print('Total time:', te, 's')
