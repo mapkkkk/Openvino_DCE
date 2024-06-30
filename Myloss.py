@@ -135,12 +135,8 @@ class perception_loss(nn.Module):
 
     def forward(self, x):
         h = self.to_relu_1_2(x)
-        h_relu_1_2 = h
         h = self.to_relu_2_2(h)
-        h_relu_2_2 = h
         h = self.to_relu_3_3(h)
-        h_relu_3_3 = h
         h = self.to_relu_4_3(h)
         h_relu_4_3 = h
-        # out = (h_relu_1_2, h_relu_2_2, h_relu_3_3, h_relu_4_3)
         return h_relu_4_3
