@@ -10,7 +10,7 @@ import time
 
 
 def lowlight(image_path):
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+    # os.environ['CUDA_VISIBLE_DEVICES'] = '0'
     data_lowlight = Image.open(image_path)
     data_lowlight = (np.asarray(data_lowlight) / 255.0)
     data_lowlight = torch.from_numpy(data_lowlight).float()
