@@ -3,8 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-# import pytorch_colors as colors
-
 class enhance_net_nopool(nn.Module):
     def __init__(self):
         super(enhance_net_nopool, self).__init__()

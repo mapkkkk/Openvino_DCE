@@ -1,17 +1,10 @@
-import torch
-import torch.nn as nn
-import torchvision
-import torch.backends.cudnn as cudnn
-import torch.optim
-import os
-import sys
 import argparse
-import time
+import os
+import torch
+import torch.optim
+import Myloss
 import dataloader
 import model
-import Myloss
-import numpy as np
-from torchvision import transforms
 
 
 def weights_init(m):
