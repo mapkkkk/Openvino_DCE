@@ -1,11 +1,5 @@
 # Zero-Reference Deep Curve Estimation for Low-Light Image Enhancement
 
-You can find more details here: https://li-chongyi.github.io/Proj_Zero-DCE.html. Have fun!
-
-**The implementation of Zero-DCE is for non-commercial use only.**
-
-We also provide a MindSpore version of our code: https://pan.baidu.com/s/1uyLBEBdbb1X4QVe2waog_g (passwords: of5l).
-
 # Pytorch 
 Pytorch implementation of Zero-DCE
 
@@ -56,28 +50,3 @@ The script will process the images in the sub-folders of "test_data" folder and 
 ```
 python lowlight_train.py 
 ```
-##  License
-The code is made available for academic research purpose only. Under Attribution-NonCommercial 4.0 International License.
-
-
-## Bibtex
-
-```
-@inproceedings{Zero-DCE,
- author = {Guo, Chunle Guo and Li, Chongyi and Guo, Jichang and Loy, Chen Change and Hou, Junhui and Kwong, Sam and Cong, Runmin},
- title = {Zero-reference deep curve estimation for low-light image enhancement},
- booktitle = {Proceedings of the IEEE conference on computer vision and pattern recognition (CVPR)},
- pages    = {1780-1789},
- month = {June},
- year = {2020}
-}
-```
-
-(Full paper: http://openaccess.thecvf.com/content_CVPR_2020/papers/Guo_Zero-Reference_Deep_Curve_Estimation_for_Low-Light_Image_Enhancement_CVPR_2020_paper.pdf)
-
-## Contact
-If you have any questions, please contact Chongyi Li at lichongyi25@gmail.com or Chunle Guo at guochunle@tju.edu.cn.
-
-## TensorFlow Version 
-Thanks tuvovan (vovantu.hust@gmail.com) who re-produces our code by TF. The results of TF version look similar with our Pytorch version. But I do not have enough time to check the details.
-https://github.com/tuvovan/Zero_DCE_TF
