@@ -1,12 +1,12 @@
 import glob
 import os
-import time
 import numpy as np
 import torch
 import torch.optim
 import torchvision
 from PIL import Image
 import model
+import time
 
 
 def lowlight(image_path):
@@ -18,10 +18,7 @@ def lowlight(image_path):
     data_lowlight = data_lowlight.cuda().unsqueeze(0)
     DCE_net = model.enhance_net_nopool().cuda()
     DCE_net.load_state_dict(torch.load('snapshots/Epoch99.pth'))
-    start = time.time()
     _, enhanced_image, _ = DCE_net(data_lowlight)
-    end_time = (time.time() - start)
-    print(end_time)
     image_path = image_path.replace('test_data', 'result')
     result_path = image_path
     if not os.path.exists(image_path.replace('/' + image_path.split("/")[-1], '')):
@@ -34,9 +31,19 @@ if __name__ == '__main__':
     with torch.no_grad():
         filePath = 'data/test_data/'
         file_list = os.listdir(filePath)
+        ts = time.time()
+        img_total = 0
+        print('Start processing')
         for file_name in file_list:
             test_list = glob.glob(filePath + file_name + "/*")
+            img_total += len(test_list)
             for image in test_list:
-                # image = image
-                print(image)
+                # print(image)
                 lowlight(image)
+        te = time.time() - ts
+        te = round(te, 2)
+        print('Total time:', te, 's')
+        print('Total images:', img_total)
+        fps = img_total / te
+        fps = round(fps, 2)
+        print('FPS:', fps)
