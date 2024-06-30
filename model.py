@@ -20,14 +20,10 @@ class enhance_net_nopool(nn.Module):
 
     def forward(self, x):
         x1 = self.relu(self.e_conv1(x))
-        # p1 = self.maxpool(x1)
         x2 = self.relu(self.e_conv2(x1))
-        # p2 = self.maxpool(x2)
         x3 = self.relu(self.e_conv3(x2))
-        # p3 = self.maxpool(x3)
         x4 = self.relu(self.e_conv4(x3))
         x5 = self.relu(self.e_conv5(torch.cat([x3, x4], 1)))
-        # x5 = self.upsample(x5)
         x6 = self.relu(self.e_conv6(torch.cat([x2, x5], 1)))
         x_r = F.tanh(self.e_conv7(torch.cat([x1, x6], 1)))
         r1, r2, r3, r4, r5, r6, r7, r8 = torch.split(x_r, 3, dim=1)
